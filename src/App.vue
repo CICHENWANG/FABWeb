@@ -1,7 +1,7 @@
 <template>
     <div
         id="app"
-        :class="{dark: theme == 'dark'}"
+        :class="{dark: theme == 'light'}"
     >
         <navigation-view></navigation-view>
         <div class="addition-container">
