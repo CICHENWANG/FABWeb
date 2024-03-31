@@ -117,12 +117,13 @@
         </div>
     </div>
 </template>
-  
+
 
 <script>
 import { mapGetters, mapState, mapMutations, mapActions } from 'vuex';
 
-export default {
+export default
+{
     name: 'Login',
     data() {
         return {
@@ -390,4 +391,3 @@ export default {
     }
 }
 </style>
-  

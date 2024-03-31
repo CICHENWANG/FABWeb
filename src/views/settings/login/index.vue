@@ -22,9 +22,9 @@
         </template>
     </float-window-base>
 </template>
-  
 
-  
+
+
 <script>
 import { mapGetters, mapState } from 'vuex';
 
