@@ -1,4 +1,5 @@
 <template>
+    <div class="fixed-component">
     <div class="forgot-block">
         <transition name="scale-up-to-up">
             <fv-progress-bar
@@ -131,6 +132,7 @@
         <div class="s3">
             <p>{{local('Terms and Conditions')}} · {{local('Privacy Policy')}}</p>
         </div>
+    </div>
     </div>
 </template>
   
@@ -393,6 +395,20 @@ export default {
             }
         }
     }
+}
+.fixed-component {
+    position: fixed; /* 设置元素固定位置 */
+    top: 0;         /* 距离顶部0px */
+    right: 0;       /* 距离右侧0px */
+    bottom: 0;      /* 距离底部0px */
+    left: 0;
+    background-color: rgb(255,255,255,0.8);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    width: 100%;
+    height: 100%;
+    /* 距离左侧0px */
+    z-index: 1000;  /* 确保组件在其他内容之上 */
 }
 </style>
   

@@ -1,4 +1,5 @@
 <template>
+    <div class="fixed-component">
     <div class="apply-block">
         <transition name="scale-up-to-up">
             <fv-progress-bar
@@ -74,6 +75,7 @@
             <p>{{local('Already have an account? Log in')}}</p>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -122,7 +124,8 @@ export default {
                 .then((res) => {
                     if (res.code === 200) {
                         this.Apply.Lock = false;
-                        this.$emit('switch-block', 'login');
+                        /*this.$emit('switch-block', 'login');*/
+                        this.$Go(`/login`)
                     }
                 })
                 .catch((res) => {
@@ -244,5 +247,19 @@ export default {
             }
         }
     }
+}
+.fixed-component {
+    position: fixed; /* 设置元素固定位置 */
+    top: 0;         /* 距离顶部0px */
+    right: 0;       /* 距离右侧0px */
+    bottom: 0;      /* 距离底部0px */
+    left: 0;
+    background-color: rgb(255,255,255,0.8);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    width: 100%;
+    height: 100%;
+    /* 距离左侧0px */
+    z-index: 1000;  /* 确保组件在其他内容之上 */
 }
 </style>

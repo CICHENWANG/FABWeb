@@ -42,7 +42,7 @@ export default {
     },
     props: {
         value: {
-            default: false
+            default: true
         },
         block: {
             default: 'login'
@@ -52,6 +52,8 @@ export default {
         return {
             thisShow: this.value,
             thisBlock: this.block
+            /*thisShow: true,
+            thisBlock: this.block*/
         };
     },
     watch: {

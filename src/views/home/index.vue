@@ -252,6 +252,7 @@
                     </template>
                     <template v-slot:menu>
                         <div>
+
                             <span @click="show.addItemPage = true">
                                 <i
                                     class="ms-Icon ms-Icon--PageAdd"

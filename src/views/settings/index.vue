@@ -348,14 +348,14 @@
             :theme="theme"
             @finished="configInit"
         ></add-ds>
-        <login-window v-model="show.login"></login-window>
+        <login-window-base v-model="show.login"></login-window-base>
     </div>
 </template>
 
 <script>
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex';
 import userProfile from './profile/userProfile.vue';
-import loginWindow from './login';
+import loginWindowBase from './login';
 import initDs from "@/components/settings/initDs.vue";
 import addDs from "@/components/settings/addDs.vue";
 import dataPathItem from '@/components/settings/dataPathItem.vue';
@@ -369,7 +369,7 @@ import { RemoteNotebookWatcher } from '@/js/eventManager.js';
 export default {
     components: {
         userProfile,
-        loginWindow,
+        loginWindowBase,
         initDs,
         addDs,
         dataPathItem

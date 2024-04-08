@@ -70,7 +70,8 @@ export default {
     methods: {
         ...mapMutations('User', ['setInfo', 'clearInfo']),
         login() {
-            this.$emit('switch-block', 'login');
+           /*this.$emit('switch-block', 'login');*/
+           this.$Go(`/login`)
         },
         logout() {
             localStorage.removeItem('ApiToken');

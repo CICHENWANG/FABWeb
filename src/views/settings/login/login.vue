@@ -1,4 +1,6 @@
 <template>
+    <div class="fixed-component">
+<!--        <p class="panel-title"  :style="{'font-size': `20px`, 'font-weight': 600}">{{title}}</p>-->
     <div class="login-block">
         <transition name="scale-up-to-up">
             <fv-progress-bar
@@ -98,8 +100,9 @@
                 >{{local(`Resend Code`)}}{{counter > 0 ? ` ${counter}s`: ''}}</fv-button>
                 <div class="s2">
                     <p
-                        class="to-apply"
-                        @click="$emit('switch-block', 'forgot')"
+                        class="to-forgot"
+                        @click="toForgot"
+
                     >{{local('Forget Password')}}</p>
                     <p
                         class="to-apply"
@@ -107,7 +110,7 @@
                     >·</p>
                     <p
                         class="to-apply"
-                        @click="$emit('switch-block', 'apply')"
+                        @click="toApply"
                     >{{local('No account yet?')}}</p>
                 </div>
             </div>
@@ -116,17 +119,20 @@
             <p>{{local('Terms and Conditions')}} · {{local('Privacy Policy')}}</p>
         </div>
     </div>
+    </div>
 </template>
 
 
 <script>
 import { mapGetters, mapState, mapMutations, mapActions } from 'vuex';
+import login from '@/views/settings/login/index.vue';
 
 export default
 {
     name: 'Login',
     data() {
         return {
+            title:'登录',
             step: 0,
             user: {
                 id: '',
@@ -149,6 +155,9 @@ export default
         }
     },
     computed: {
+        login() {
+            return login
+        },
         ...mapGetters(['local', 'currentDataPath']),
         ...mapGetters('Theme', ['color', 'gradient']),
         ...mapState({
@@ -161,6 +170,12 @@ export default
             clearInfo: 'clearInfo'
         }),
         ...mapActions('User', ['getInfo', 'getAvatar']),
+        toApply(){
+            this.$Go(`/apply`)
+        },
+        toForgot(){
+            this.$Go(`/forgot`)
+        },
         async handleLogin(code = null) {
             if (!this.lock.login) return;
             if (code && code.length < 6) return;
@@ -186,6 +201,7 @@ export default
                         await this.getInfo();
                         this.getAvatar();
                         this.$emit('finished');
+                        this.$Go(`/settings`)
                     }
                     this.lock.login = true;
                 })
@@ -211,6 +227,7 @@ export default
                             status: 'warning'
                         });
                     this.lock.login = true;
+
                 });
         },
         async sendCode() {
@@ -334,9 +351,16 @@ export default
             .s2 {
                 @include HcenterVcenter;
 
-                margin-top: 25px;
 
+                margin: 30px;
                 .to-apply {
+                    position: fixed;
+                    right:51%;
+                    @include a-link;
+                }
+                .to-forgot {
+                    position: fixed;
+                    right:42%;
                     @include a-link;
                 }
             }
@@ -389,5 +413,19 @@ export default
             }
         }
     }
+}
+.fixed-component {
+    position: fixed; /* 设置元素固定位置 */
+    top: 0;         /* 距离顶部0px */
+    right: 0;       /* 距离右侧0px */
+    bottom: 0;      /* 距离底部0px */
+    left: 0;
+    background-color: rgb(255,255,255,0.8);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    width: 100%;
+    height: 100%;
+    /* 距离左侧0px */
+    z-index: 1000;  /* 确保组件在其他内容之上 */
 }
 </style>

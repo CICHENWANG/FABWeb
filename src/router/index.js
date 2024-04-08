@@ -2,16 +2,27 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import tool from "./tools";
+// import Login from '@/views/settings/login/indexPage.vue';
 
 Vue.use(VueRouter);
 
 const AsyncLoad = tool.AsyncLoad;
 
 const routes = [
+   {
+        path: '/login',
+        name: "loginWindowBase",
+        component: () => AsyncLoad(import('@/views/settings/login/login.vue'))
+    },
     {
-        path: "/",
-        name: "Home",
-        component: () => AsyncLoad(import("@/views/home"))
+        path: '/apply',
+        name: "applyWindowBase",
+        component: () => AsyncLoad(import('@/views/settings/login/apply.vue'))
+    },
+    {
+        path: '/forgot',
+        name: "applyWindowBase",
+        component: () => AsyncLoad(import('@/views/settings/login/forgot.vue'))
     },
     {
         path: "/partitions/:id",
