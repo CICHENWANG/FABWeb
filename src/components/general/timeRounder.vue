@@ -1,4 +1,5 @@
 <template>
+<!--   v-if= "$route.path !=='/login'"  -->
     <fv-AnimatedIcon
         class="time-rounder-container"
         fontSize="20"

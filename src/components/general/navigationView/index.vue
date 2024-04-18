@@ -1,4 +1,4 @@
-<template>
+<template >
     <fv-navigation-panel
         :title="local('Fabulous')"
         class="navigation-view"

@@ -1,6 +1,6 @@
 <template>
     <div class="fixed-component">
-<!--        <p class="panel-title"  :style="{'font-size': `20px`, 'font-weight': 600}">{{title}}</p>-->
+       <p class="panel-title"  :style="{'font-size': `20px`, 'font-weight': 600}">{{local(title) }}</p>
     <div class="login-block">
         <transition name="scale-up-to-up">
             <fv-progress-bar
@@ -33,7 +33,7 @@
                     background="whitesmoke"
                     :border-radius="6"
                     :theme="theme"
-                    style="width: 100%; max-width: 375px; height: 40px; margin-top: 45px; flex-shrink: 0;"
+                    style="width: 80%; max-width: 375px; height: 40px; margin-top: 45px; flex-shrink: 0"
                     @keyup="handleEnter"
                 ></fv-text-box>
                 <fv-text-box
@@ -46,7 +46,7 @@
                     background="whitesmoke"
                     :border-radius="6"
                     :theme="theme"
-                    style="width: 100%; max-width: 375px; height: 40px; margin-top: 15px; flex-shrink: 0;"
+                    style="width: 80%; max-width: 375px; height: 40px; margin-top: 15px; flex-shrink: 0;"
                     @keyup="handleEnter"
                 ></fv-text-box>
                 <fv-button
@@ -132,7 +132,7 @@ export default
     name: 'Login',
     data() {
         return {
-            title:'登录',
+            title:'login',
             step: 0,
             user: {
                 id: '',
@@ -350,16 +350,16 @@ export default
 
             .s2 {
                 @include HcenterVcenter;
-
-
-                margin: 30px;
+                margin: 30px 30px 40px 30px;
                 .to-apply {
-                    position: fixed;
+                    display: block;
+
                     right:51%;
                     @include a-link;
                 }
                 .to-forgot {
-                    position: fixed;
+                    display: block;
+
                     right:42%;
                     @include a-link;
                 }
@@ -426,6 +426,9 @@ export default
     width: 100%;
     height: 100%;
     /* 距离左侧0px */
-    z-index: 1000;  /* 确保组件在其他内容之上 */
+    z-index: 10000;  /* 确保组件在其他内容之上 */
+}
+.panel-title{
+    left: 30%;
 }
 </style>

@@ -37,6 +37,7 @@ Vue.use(PowerEditor);
 Vue.use(api);
 Vue.use(local_api);
 
+
 Vue.config.productionTip = false
 
 new Vue({

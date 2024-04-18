@@ -12,19 +12,22 @@ const routes = [
    {
         path: '/login',
         name: "loginWindowBase",
-        component: () => AsyncLoad(import('@/views/settings/login/login.vue'))
+        component: () => AsyncLoad(import('@/views/settings/login/login.vue')),
+        meta: { hideIcon: true }
     },
     {
         path: '/apply',
         name: "applyWindowBase",
-        component: () => AsyncLoad(import('@/views/settings/login/apply.vue'))
+        component: () => AsyncLoad(import('@/views/settings/login/apply.vue')),
+        meta: { hideIcon: true }
     },
     {
         path: '/forgot',
         name: "applyWindowBase",
-        component: () => AsyncLoad(import('@/views/settings/login/forgot.vue'))
+        component: () => AsyncLoad(import('@/views/settings/login/forgot.vue')),
+        meta: { hideIcon: true }
     },
-    {
+    {/**/
         path: "/partitions/:id",
         name: "Home",
         component: () => AsyncLoad(import("@/views/home"))
