@@ -65,6 +65,7 @@ const config = {
             });
             // 远程配置获取 //
             let id = context.rootState.User.info.id;
+            console.log(Vue.prototype.$api.ConfigController);
             if (id) {
                 await Vue.prototype.$api.ConfigController.getConfig(id).then((res) => {
                     if (res.code === 200) {

@@ -56,7 +56,8 @@ const routes = [
         path: "/dev",
         name: "Dev",
         component: () => AsyncLoad(import("@/views/dev"))
-    }
+    },
+
 ];
 
 const router = new VueRouter({
@@ -64,5 +65,29 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
+router.beforeEach((to, from, next) => {
+    // 从localStorage获取token
+    const token = localStorage.getItem('ApiToken');
+    // 从localStorage获取token的过期时间
+    const expirationDate = localStorage.getItem('ApiTokenExpiredAt');
+    const now = new Date();
+
+    // 检查token是否存在且未过期
+    if (token && new Date(expirationDate) > now) {
+        // token有效
+        next();
+    } else {
+        // token无效或不存在
+        if (to.path !== '/login') {
+            // 如果当前不是在登录页面，重定向到登录页面
+            next({ path: '/login' });
+        } else {
+            // 如果已经在登录页面，允许继续
+            next();
+        }
+    }
+});
+
+
 
 export default router;

@@ -76,6 +76,7 @@ export default {
         logout() {
             localStorage.removeItem('ApiToken');
             this.clearInfo();
+            this.$Go(`/login`)
         }
     }
 };
