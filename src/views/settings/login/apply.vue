@@ -70,8 +70,9 @@
         </div>
         <div
             class="s3"
-            @click="$emit('switch-block', 'login')"
-        >
+            @click="toLogin"
+
+        ><!--"$emit('switch-block','login')"-->
             <p>{{local('Already have an account? Log in')}}</p>
         </div>
     </div>
@@ -102,6 +103,9 @@ export default {
         })
     },
     methods: {
+        toLogin(){
+            this.$Go('/login')
+        },
         verifyInput() {
             if (this.Form.email == '') {
                 this.$barWarning(this.local('Email can not be empty.'), {

@@ -114,9 +114,10 @@
                     @click="handlerForgot"
                 >{{local(`Continue`)}}</fv-button>
                 <div class="s2">
+<!--                    $emit('switch-block', 'login')-->
                     <p
-                        class="to-apply"
-                        @click="$emit('switch-block', 'login')"
+                        class="to-login"
+                        @click="toLogin"
                     >{{local('Login')}}</p>
                     <p
                         class="to-apply"
@@ -124,7 +125,7 @@
                     >·</p>
                     <p
                         class="to-apply"
-                        @click="$emit('switch-block', 'apply')"
+                        @click="toApply"
                     >{{local('No account yet?')}}</p>
                 </div>
             </div>
@@ -177,6 +178,12 @@ export default {
         ...mapMutations('User', {
             clearInfo: 'clearInfo'
         }),
+        toLogin() {
+            this.$Go('/login')
+        },
+        toApply(){
+            this.$Go('/apply')
+        },
         async handlerForgot(code) {
             if (!this.lock.forgot) return;
             if (code && code.length < 6) return;
@@ -339,10 +346,17 @@ export default {
 
             .s2 {
                 @include HcenterVcenter;
+                margin: 30px 30px 40px 30px;
+                .to-login {
+                    display: block;
 
-                margin-top: 25px;
-
+                    right:51%;
+                    @include a-link;
+                }
                 .to-apply {
+                    display: block;
+
+                    right:42%;
                     @include a-link;
                 }
             }
