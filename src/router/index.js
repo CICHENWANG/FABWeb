@@ -78,7 +78,7 @@ router.beforeEach((to, from, next) => {
         next();
     } else {
         // token无效或不存在
-        if (to.path !== '/login') {
+        if (to.path !== '/login'&&to.path !=='/apply'&&to.path !=='/forgot') {
             // 如果当前不是在登录页面，重定向到登录页面
             next({ path: '/login' });
         } else {
