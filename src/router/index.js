@@ -9,6 +9,12 @@ Vue.use(VueRouter);
 const AsyncLoad = tool.AsyncLoad;
 
 const routes = [
+    {
+        path: '/transform',
+        name: "loginWindowBase",
+        component: () => AsyncLoad(import('@/views/home/transform.vue')),
+        meta: { hideIcon: true }
+    },
    {
         path: '/login',
         name: "loginWindowBase",
@@ -74,11 +80,12 @@ router.beforeEach((to, from, next) => {
 
     // 检查token是否存在且未过期
     if (token && new Date(expirationDate) > now) {
+        console.log(token+1)
         // token有效
         next();
     } else {
         // token无效或不存在
-        if (to.path !== '/login'&&to.path !=='/apply'&&to.path !=='/forgot') {
+        if (to.path !== '/login'&&to.path !=='/apply'&&to.path !=='/forgot'&&to.path !=='/transform') {
             // 如果当前不是在登录页面，重定向到登录页面
             next({ path: '/login' });
         } else {

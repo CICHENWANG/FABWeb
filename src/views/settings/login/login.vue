@@ -1,7 +1,6 @@
 <template>
     <div class="fixed-component">
-       <p class="panel-title"  :style="{'font-size': `20px`, 'font-weight': 600}">{{local(title) }}</p>
-    <div class="login-block">
+          <div class="login-block">
         <transition name="scale-up-to-up">
             <fv-progress-bar
                 v-show="!lock.login"
@@ -24,6 +23,11 @@
                 >
                     {{local(`Login`)}}
                 </p>
+<!--                <select name="name" id="translate" @change='handleChange' v-model='choice' style='width: 5%'>
+                    <option value="baidu" > 百度 </option>
+                    <option value="youdao"> 有道 </option>
+                </select>-->
+<!--           user.id     -->
                 <fv-text-box
                     v-show="step === 0"
                     v-model="user.id"
@@ -36,11 +40,13 @@
                     style="width: 80%; max-width: 375px; height: 40px; margin-top: 45px; flex-shrink: 0"
                     @keyup="handleEnter"
                 ></fv-text-box>
+<!--                user.password-->
+<!--                type="password"-->
                 <fv-text-box
                     v-show="step === 0"
                     v-model="user.password"
+                    type='password'
                     :placeholder="local(`Password`)"
-                    type="password"
                     borderWidth="2"
                     :revealBorder="true"
                     background="whitesmoke"
@@ -49,6 +55,8 @@
                     style="width: 80%; max-width: 375px; height: 40px; margin-top: 15px; flex-shrink: 0;"
                     @keyup="handleEnter"
                 ></fv-text-box>
+<!--                handleLogin()-->
+<!--                !lock.login || !user.id || !user.password-->
                 <fv-button
                     v-show="step === 0"
                     :background="color"
@@ -126,14 +134,18 @@
 <script>
 import { mapGetters, mapState, mapMutations, mapActions } from 'vuex';
 import login from '@/views/settings/login/index.vue';
+import axios from 'axios';
 
 export default
 {
     name: 'Login',
     data() {
         return {
+            choice:"youdao",
             title:'login',
             step: 0,
+            content:"123",
+            output:"",
             user: {
                 id: '',
                 password: ''
@@ -170,11 +182,32 @@ export default
             clearInfo: 'clearInfo'
         }),
         ...mapActions('User', ['getInfo', 'getAvatar']),
+        handleChange(){
+            console.log(this.choice)
+        },
         toApply(){
             this.$Go(`/apply`)
         },
         toForgot(){
             this.$Go(`/forgot`)
+        },
+        async handleTransform() {
+            axios.get('/translate/'+this.choice, {
+                baseURL: 'http://59.77.134.42:5084',
+                params: {
+                    text: this.content
+                }
+            })
+                .then((response) =>{
+                    this.output=response.data.data;
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    // 总是会执行
+                });
         },
         async handleLogin(code = null) {
             if (!this.lock.login) return;
@@ -201,7 +234,7 @@ export default
                         await this.getInfo();
                         this.getAvatar();
                         this.$emit('finished');
-                        this.$Go(`/settings`)
+                        this.$Go(`/`)
                     }
                     this.lock.login = true;
                 })
@@ -415,7 +448,7 @@ export default
     }
 }
 .fixed-component {
-    position: fixed; /* 设置元素固定位置 */
+    /*position: fixed;*/ /* 设置元素固定位置 */
     top: 0;         /* 距离顶部0px */
     right: 0;       /* 距离右侧0px */
     bottom: 0;      /* 距离底部0px */
@@ -426,9 +459,42 @@ export default
     width: 100%;
     height: 100%;
     /* 距离左侧0px */
-    z-index: 10000;  /* 确保组件在其他内容之上 */
+   /* z-index: 10000; */ /* 确保组件在其他内容之上 */
 }
 .panel-title{
     left: 30%;
 }
+/* 定义下拉框的样式 */
+#translate {
+    width: 100%; /* 设置宽度为100%，覆盖内联样式 */
+    padding: 8px; /* 添加内边距 */
+    border: 1px solid #ccc; /* 设置边框 */
+    border-radius: 4px; /* 设置边框圆角 */
+    background-color: #f8f8f8; /* 设置背景色 */
+    font-size: 16px; /* 设置字体大小 */
+    color: #333; /* 设置字体颜色 */
+    -webkit-appearance: none; /* 移除iOS默认样式 */
+    -moz-appearance: none; /* 移除Firefox默认样式 */
+    appearance: none; /* 移除默认下拉箭头 */
+}
+
+/* 添加自定义下拉箭头 */
+#translate {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px top 50%;
+    background-size: 12px;
+}
+
+/* 当下拉框获得焦点时的样式 */
+#translate:focus {
+    border-color: #66afe9;
+    outline: none;
+}
+
+/* 定义选项的样式 */
+#translate option {
+    padding: 8px; /* 为选项添加内边距 */
+}
+
 </style>

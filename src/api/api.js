@@ -2910,6 +2910,53 @@ export class NotebookController {
   }
  
   /**
+  * @summary 上传图片信息
+  * @param {string} [string] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async uploadImage(string,cancelSource,uploadProgress,downloadProgress){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'post',
+        url:'/sources/uploadImage',
+        data:string,
+        params:{},
+        headers:{
+          "Content-Type":"application/json"
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response.data)
+          reject(err.response.data)
+        else
+          reject(err.response);
+      })
+    })
+  }
+ 
+  /**
   * @summary 判断指定路径是否存在,路径以/间隔,格式例如: {GUID}/{GUID}/{GUID}
   * @param {String} [pathuri] 
   * @param {String} [filepath] 
@@ -3324,6 +3371,14 @@ NotebookController.copyDirectory.fullPath=`${axios.defaults.baseURL}/sources/{ur
 * @description copyDirectory url链接，不包含baseURL
 */
 NotebookController.copyDirectory.path=`/sources/{uri}/directories/copy`
+/**
+* @description uploadImage url链接，包含baseURL
+*/
+NotebookController.uploadImage.fullPath=`${axios.defaults.baseURL}/sources/uploadImage`
+/**
+* @description uploadImage url链接，不包含baseURL
+*/
+NotebookController.uploadImage.path=`/sources/uploadImage`
 /**
 * @description existsPath url链接，包含baseURL
 */
@@ -5496,3 +5551,118 @@ SystemController.delete.fullPath=`${axios.defaults.baseURL}/system/emails/{id}`
 * @description delete url链接，不包含baseURL
 */
 SystemController.delete.path=`/system/emails/{id}`
+
+export class TranslateController {
+ 
+  /**
+  * @summary 有道翻译接口
+  * @param {String} [text] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async youdaoTranslateText(text,cancelSource,uploadProgress,downloadProgress){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/translate/youdao',
+        data:{},
+        params:{text},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response.data)
+          reject(err.response.data)
+        else
+          reject(err.response);
+      })
+    })
+  }
+ 
+  /**
+  * @summary 百度翻译接口
+  * @param {String} [text] 
+  * @param {CancelTokenSource} [cancelSource] Axios Cancel Source 对象，可以取消该请求
+  * @param {Function} [uploadProgress] 上传回调函数
+  * @param {Function} [downloadProgress] 下载回调函数
+  */
+  static async baidutTranslateText(text,cancelSource,uploadProgress,downloadProgress){
+    return await new Promise((resolve,reject)=>{
+      let responseType = "json";
+      let options = {
+        method:'get',
+        url:'/translate/baidu',
+        data:{},
+        params:{text},
+        headers:{
+          "Content-Type":""
+        },
+        onUploadProgress:uploadProgress,
+        onDownloadProgress:downloadProgress
+      }
+      // support wechat mini program
+      if (cancelSource!=undefined){
+        options.cancelToken = cancelSource.token
+      }
+      if (responseType != "json"){
+        options.responseType = responseType;
+      }
+      axios(options)
+      .then(res=>{
+        if (res.config.responseType=="blob"){
+          resolve(new Blob([res.data],{
+            type: res.headers["content-type"].split(";")[0]
+          }))
+        }else{
+          resolve(res.data);
+          return res.data
+        }
+      }).catch(err=>{
+        if (err.response.data)
+          reject(err.response.data)
+        else
+          reject(err.response);
+      })
+    })
+  }
+}
+
+// class TranslateController static method properties bind
+/**
+* @description youdaoTranslateText url链接，包含baseURL
+*/
+TranslateController.youdaoTranslateText.fullPath=`${axios.defaults.baseURL}/translate/youdao`
+/**
+* @description youdaoTranslateText url链接，不包含baseURL
+*/
+TranslateController.youdaoTranslateText.path=`/translate/youdao`
+/**
+* @description baidutTranslateText url链接，包含baseURL
+*/
+TranslateController.baidutTranslateText.fullPath=`${axios.defaults.baseURL}/translate/baidu`
+/**
+* @description baidutTranslateText url链接，不包含baseURL
+*/
+TranslateController.baidutTranslateText.path=`/translate/baidu`

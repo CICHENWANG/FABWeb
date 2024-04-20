@@ -1,14 +1,15 @@
 import axios from 'axios'
 
 let ax = axios.create();
-
+/*http://59.77.134.18:5083*/
+/*fb.creatorsn.com/api*/
 // config here
 const isdev = (process.env.NODE_ENV === "development")
 if (isdev) {
-    ax.defaults.baseURL = "https://fb.creatorsn.com/api";
+    ax.defaults.baseURL = "http://59.77.134.42:5084";
 
 } else {
-    ax.defaults.baseURL = "https://fb.creatorsn.com/api";
+    ax.defaults.baseURL = "http://59.77.134.42:5084";
 
 }
 

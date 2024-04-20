@@ -6,6 +6,8 @@
         :class="[{dark: theme === 'dark'}]"
         style="width: 350px; height: 500px; background: rgba(239, 239, 239, 0.6); border: rgba(120, 120, 120, 0.1) solid thin;"
     >
+
+<!--        -->
         <fv-text-field
             v-model="translateObj.selection"
             :theme="theme"
@@ -17,6 +19,10 @@
             style="margin-top: 50px;"
             @keyup="ctrlEnterTranslate"
         ></fv-text-field>
+        <select name="name" id="translate" @change='handleChange' v-model='choice' style='width: 50%'>
+            <option value="baidu" > 百度 </option>
+            <option value="youdao"> 有道 </option>
+        </select>
         <fv-text-field
             v-show="translateObj.selection !== '' && translateObj.text !== ''"
             v-model="translateObj.text"
@@ -75,7 +81,8 @@ export default {
         },
         translateObj: {
             type: Object,
-            default: () => {},
+            default: () => {
+            },
         },
         ctrlEnterTranslate: {
             type: Function,
@@ -88,6 +95,8 @@ export default {
     },
     data() {
         return {
+            choice:"youdao",
+            selection:"",
             thisValue: this.value,
         };
     },
@@ -103,6 +112,9 @@ export default {
         this.globalAppendInit();
     },
     methods: {
+        handleChange(){
+            this.$emit("send-choice",this.choice)
+        },
         globalAppendInit() {
             this.$nextTick(() => {
                 const body = document.querySelector("body");
@@ -162,5 +174,36 @@ export default {
             line-height: 2;
         }
     }
+}
+#translate {
+    width: 100%; /* 设置宽度为100%，覆盖内联样式 */
+    padding: 8px; /* 添加内边距 */
+    border: 1px solid #ccc; /* 设置边框 */
+    border-radius: 4px; /* 设置边框圆角 */
+    background-color: #f8f8f8; /* 设置背景色 */
+    font-size: 16px; /* 设置字体大小 */
+    color: #333; /* 设置字体颜色 */
+    -webkit-appearance: none; /* 移除iOS默认样式 */
+    -moz-appearance: none; /* 移除Firefox默认样式 */
+    appearance: none; /* 移除默认下拉箭头 */
+}
+
+/* 添加自定义下拉箭头 */
+#translate {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px top 50%;
+    background-size: 12px;
+}
+
+/* 当下拉框获得焦点时的样式 */
+#translate:focus {
+    border-color: #66afe9;
+    outline: none;
+}
+
+/* 定义选项的样式 */
+#translate option {
+    padding: 8px; /* 为选项添加内边距 */
 }
 </style>

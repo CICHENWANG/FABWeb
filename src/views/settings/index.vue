@@ -593,6 +593,7 @@ export default {
         addSource() {
             this.show.addDS = true;
         },
+        /*linkLocalDataSource()*/
         async linkSource() {
             this.$local_api.ConfigController.linkLocalDataSource().then(
                 (res) => {

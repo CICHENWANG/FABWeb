@@ -23,7 +23,7 @@
                     background="whitesmoke"
                     :border-radius="6"
                     :theme="theme"
-                    style="width: 100%; max-width: 375px; min-height: 40px; margin-top: 15px; flex-shrink: 0;"
+                    style="width: 80%; max-width: 375px; min-height: 40px; margin-top: 15px; flex-shrink: 0;"
                     @keyup="handleEnter"
                 ></fv-text-box>
                 <fv-text-box
@@ -70,8 +70,9 @@
         </div>
         <div
             class="s3"
-            @click="$emit('switch-block', 'login')"
-        >
+            @click="toLogin"
+
+        ><!--"$emit('switch-block','login')"-->
             <p>{{local('Already have an account? Log in')}}</p>
         </div>
     </div>
@@ -102,6 +103,9 @@ export default {
         })
     },
     methods: {
+        toLogin(){
+            this.$Go('/login')
+        },
         verifyInput() {
             if (this.Form.email == '') {
                 this.$barWarning(this.local('Email can not be empty.'), {
@@ -249,7 +253,7 @@ export default {
     }
 }
 .fixed-component {
-    position: fixed; /* 设置元素固定位置 */
+    /*position: fixed; *//* 设置元素固定位置 */
     top: 0;         /* 距离顶部0px */
     right: 0;       /* 距离右侧0px */
     bottom: 0;      /* 距离底部0px */
@@ -260,6 +264,6 @@ export default {
     width: 100%;
     height: 100%;
     /* 距离左侧0px */
-    z-index: 1000;  /* 确保组件在其他内容之上 */
+    /*z-index: 1000;  *//* 确保组件在其他内容之上 */
 }
 </style>

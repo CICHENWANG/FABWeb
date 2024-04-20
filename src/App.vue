@@ -3,7 +3,7 @@
         id="app"
         :class="{dark: theme == 'dark'}"
     >
-        <navigation-view v-show= "$route.path !=='/login'& $route.path !=='/apply'& $route.path !=='/forgot'"></navigation-view>
+        <navigation-view v-show= "$route.path !=='/login'& $route.path !=='/apply'& $route.path !=='/forgot'& $route.path !=='/transform'"></navigation-view>
         <div class="addition-container">
             <div class="global-container">
                 <keep-alive include="Home,Templates,Settings">

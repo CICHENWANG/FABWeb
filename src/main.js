@@ -66,9 +66,9 @@ new Vue({
             return this.$SDate.Format("YYYY-mm-dd HH:MM", date);
         }
         if (isdev) {
-            Vue.prototype.$server = "http://59.77.134.18:5083";
+            Vue.prototype.$server = "http://59.77.134.42:5084";
         } else {
-            Vue.prototype.$server = `http://59.77.134.18:5083`;
+            Vue.prototype.$server = `http://59.77.134.42:5084`;
         }
     }
 }).$mount('#app')

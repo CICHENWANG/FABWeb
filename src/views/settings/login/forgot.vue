@@ -114,9 +114,10 @@
                     @click="handlerForgot"
                 >{{local(`Continue`)}}</fv-button>
                 <div class="s2">
+<!--                    $emit('switch-block', 'login')-->
                     <p
-                        class="to-apply"
-                        @click="$emit('switch-block', 'login')"
+                        class="to-login"
+                        @click="toLogin"
                     >{{local('Login')}}</p>
                     <p
                         class="to-apply"
@@ -124,7 +125,7 @@
                     >·</p>
                     <p
                         class="to-apply"
-                        @click="$emit('switch-block', 'apply')"
+                        @click="toApply"
                     >{{local('No account yet?')}}</p>
                 </div>
             </div>
@@ -177,6 +178,12 @@ export default {
         ...mapMutations('User', {
             clearInfo: 'clearInfo'
         }),
+        toLogin() {
+            this.$Go('/login')
+        },
+        toApply(){
+            this.$Go('/apply')
+        },
         async handlerForgot(code) {
             if (!this.lock.forgot) return;
             if (code && code.length < 6) return;
@@ -339,10 +346,17 @@ export default {
 
             .s2 {
                 @include HcenterVcenter;
+                margin: 30px 30px 40px 30px;
+                .to-login {
+                    display: block;
 
-                margin-top: 25px;
-
+                    right:51%;
+                    @include a-link;
+                }
                 .to-apply {
+                    display: block;
+
+                    right:42%;
                     @include a-link;
                 }
             }
@@ -397,7 +411,7 @@ export default {
     }
 }
 .fixed-component {
-    position: fixed; /* 设置元素固定位置 */
+    /*position: fixed;*/ /* 设置元素固定位置 */
     top: 0;         /* 距离顶部0px */
     right: 0;       /* 距离右侧0px */
     bottom: 0;      /* 距离底部0px */
@@ -408,7 +422,7 @@ export default {
     width: 100%;
     height: 100%;
     /* 距离左侧0px */
-    z-index: 1000;  /* 确保组件在其他内容之上 */
+    /*z-index: 1000;*/  /* 确保组件在其他内容之上 */
 }
 </style>
   
